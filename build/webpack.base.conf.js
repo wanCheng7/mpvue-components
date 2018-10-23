@@ -45,6 +45,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue': 'mpvue',
+      'assets': resolve('src/assets'),
       '@': resolve('src')
     },
     symlinks: false,
@@ -100,12 +101,12 @@ module.exports = {
   plugins: [
     new MpvueEntry(),
     new MpvuePlugin(),
-    new CopyWebpackPlugin([{
-      from: '**/*.json',
-      to: ''
-    }], {
-      context: 'src/'
-    }),
+    // new CopyWebpackPlugin([{
+    //   from: '**/*.json',
+    //   to: ''
+    // }], {
+    //   context: 'src/'
+    // }),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),

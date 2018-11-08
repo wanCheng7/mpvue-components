@@ -1,6 +1,6 @@
 <template>
   <swiper class="swiper_class" :indicator-dots="indicatorDots"
-	  :autoplay="autoplay" :interval="interval" :duration="duration" @change="bannerChangeFn">
+	  :autoplay="autoplay" :interval="interval" :duration="duration" :circular="circular" @change="bannerChangeFn">
 	  <block v-for="(item, index) in list" :key="index" >
 	    <swiper-item >
 	      <div class="img_box">
@@ -8,7 +8,7 @@
 	        <div class="text_box row-between">
 	          <p class="tit">{{ item.tit }}</p>
 	          <p class="dot_list row-end">
-	            <span class="slot" v-for="(item, index_) in list" :key="index_" :class="{'active': index_ == slot_index}"></span>
+	            <span class="slot" v-for="(item, index_) in list" :key="index_" :class="{'active': index_ == activeIndex}"></span>
 	          </p>
 	        </div>
 	      </div>
@@ -24,6 +24,10 @@ export default {
   		type: Array,
       default: []
   	},
+    activeIndex: {
+      type: Number,
+      default: 0
+    },
   	indicatorDots: {   //是否显示面板指示点
   		type: Boolean,
   		default: false
@@ -39,11 +43,16 @@ export default {
   	duration: {
   		type: Number,
   		default: 1000
-  	}
+  	},
+    circular: {  //衔接滑动
+      type: Boolean,
+      default: true
+    }
   },
   methods: {
-  	bannerChangeFn () {
-
+  	bannerChangeFn (e) {
+      let index = e.mp.detail.current;
+      this.$emit('change', index)
   	}
   }
 }
